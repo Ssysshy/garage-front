@@ -1,10 +1,9 @@
 <template>
     <div>
-
         <Input v-model="filter.name" style="padding: 5px">
-        <Button slot="prepend" @click="onAdd">添加记录</Button>
-        <Button slot="prepend" @click="onDeletes">删除所选记录</Button>
-        <Button slot="append" icon="ios-search" @click="onSearch"></Button>
+            <Button slot="prepend" @click="onAdd">添加记录</Button>
+            <Button slot="prepend" @click="onDeletes">删除所选记录</Button>
+            <Button slot="append" icon="ios-search" @click="onSearch"></Button>
         </Input>
         <Table border :columns="columns"
                :data="filter.list"
@@ -132,7 +131,6 @@
                         }
                     }
                 ],
-
                 formValidate: {
                     name: '',
                     password: '',

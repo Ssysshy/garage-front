@@ -8,7 +8,8 @@ export default {
                 page: 1,
                 rows: 10,  //每页限制条数
                 name: '',
-                id: ''
+                id: '',
+                originalname: '',
             },
             modal: false,
         }
@@ -34,7 +35,6 @@ export default {
                 })
         },
         remove (index, id) {
-
             this.$Modal.confirm({
                 title: '确认删除该条数据',
                 content: '<p>删除将无法恢复</p>',
