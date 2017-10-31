@@ -3,11 +3,26 @@
         <div style="padding: 5px">
             <Button type="primary" @click="openAdd">添加节点</Button>
             <Button type="primary" @click="confirm">删除节点</Button>
-            <Button type="primary" @click="totalDivice" >总分类</Button>
-            <Button type="primary" @click="deviceTree(1)" >上传分类</Button>
-            <Button type="primary" @click="deviceTree(2)">新闻分类</Button>
-            <Button type="primary" @click="deviceTree(3)">产品分类</Button>
-            <Button type="primary" @click="deviceTree(4)">其他分类</Button>
+            <Button @click="totalDivice" style="margin-left: 25px">
+                <Icon type="merge" size=15></Icon>
+                总分类
+            </Button>
+            <Button type="ghost" icon="" shape="circle" @click="deviceTree(1)" >
+                <Icon type="network" size=15></Icon>
+                上传分类
+            </Button>
+            <Button type="ghost" shape="circle" @click="deviceTree(2)">
+                <Icon type="ios-lightbulb" size=15></Icon>
+                新闻分类
+                </Button>
+            <Button type="ghost" shape="circle" @click="deviceTree(3)">
+                <Icon type="bug" size=15></Icon>
+                产品分类
+            </Button>
+            <Button type="ghost" shape="circle" @click="deviceTree(4)">
+                <Icon type="code-working" size=15></Icon>
+                其他分类
+            </Button>
         </div>
         <Tree :data="data" @on-select-change="selectionNode"></Tree>
         <Modal
