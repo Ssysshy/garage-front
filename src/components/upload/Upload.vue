@@ -31,6 +31,8 @@
                                 type="drag"
                                 name="avatar"
                                 :action=this.uploadUrl
+                                :before-upload="getTypeValue"
+                                :on-success="reGet"
                         >
                             <div style="padding: 20px 0">
                                 <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
@@ -163,6 +165,21 @@
                 })
                 console.log(this.filter);
             },
+            getTypeValue(){
+                if (this.typeValue<1) {
+                    this.$Notice.error({
+                        title: '通知',
+                        desc: '请选择分类'
+                    });
+
+                    return false
+                }else{
+                    return true
+                };
+            },
+            reGet(){
+                this.getData();
+            }
         }
     }
 </script>

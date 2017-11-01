@@ -63,7 +63,7 @@
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
         <Row type="flex">
             <Col :span="spanLeft" class="layout-menu-left">
-                <Menu active-name="1" theme="dark" width="auto">
+            <Menu active-name="1" theme="dark" width="auto">
                 <div class="layout-logo-left"></div>
                 <MenuItem name="1">
                     <Icon type="ios-navigate" :size="iconSize"></Icon>
@@ -105,36 +105,29 @@
                         </router-link>
                     </span>
                 </MenuItem>
-                    <MenuItem name="6">
-                        <Icon type="ios-analytics" :size="iconSize"></Icon>
-                        <span class="layout-text">
-                            <router-link to="comment">
-                                评论模块
-                            </router-link>
-                    </span>
-                    </MenuItem>
             </Menu>
             </Col>
             <Col :span="spanRight">
-                <div class="layout-header">
-                    <Button type="text" @click="toggleClick">
-                        <Icon type="navicon" size="32"></Icon>
-                    </Button>
-                </div>
-                <div class="layout-breadcrumb">
-                    <Breadcrumb>
-                        <BreadcrumbItem href="#">首页</BreadcrumbItem>
-                        <BreadcrumbItem href="#">应用中心</BreadcrumbItem>
-                        <BreadcrumbItem>某应用</BreadcrumbItem>
-                    </Breadcrumb>
-                </div>
-                <div class="layout-content">
-                    <router-view></router-view>
-                </div>
-                <div class="layout-copy">
-                    2011-2016 &copy; TalkingData
+            <div class="layout-header">
+                <Button type="text" @click="toggleClick">
+                    <Icon type="navicon" size="32"></Icon>
+                </Button>
+            </div>
+            <div class="layout-breadcrumb">
+                <Breadcrumb>
+                    <BreadcrumbItem href="#">首页</BreadcrumbItem>
+                    <BreadcrumbItem href="#">应用中心</BreadcrumbItem>
+                    <BreadcrumbItem>某应用</BreadcrumbItem>
+                </Breadcrumb>
+            </div>
+            <div class="layout-content">
+                <router-view></router-view>
+            </div>
+            <div class="layout-copy">
+                2011-2016 &copy; TalkingData
 
-                </div>
+
+            </div>
             </Col>
         </Row>
     </div>

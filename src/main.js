@@ -6,9 +6,10 @@ import 'iview/dist/styles/iview.css';    // 使用 CSS
 import {routes} from './routes';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import VueQuillEditor from 'vue-quill-editor';
 
 Vue.use(VueAxios, axios)
-
+Vue.use(VueQuillEditor)
 
 
 Vue.use(VueRouter);

@@ -19,10 +19,12 @@ export default {
         onAdd(){
             this.$refs['formValidate'].resetFields();
             delete this.formValidate._id;
+            if (this.module == 'comment') {
+                this.formValidate.id = this.filter.id;
+            };
             this.modal = true;
         },
         show (params) {
-            console.log(params);
             this.typeValue = params.row.typeValue;
             this.modal = true;
             Object.assign(this.$data.formValidate,params.row)
@@ -106,8 +108,7 @@ export default {
         handleSubmit (name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-                    // console.log(this.typeValue);
-                    if (this.typeValue.toString() != 'undefined') {
+                    if (this.typeValue != undefined) {
                         if (this.typeValue>0) {
                             if (this.formValidate._id && this.formValidate._id.length>0) {
                                 this.$http.put(`http://localhost:3000/${this.module}/data/`+this.formValidate._id,this.formValidate)
@@ -148,7 +149,6 @@ export default {
                                 })
                         };
                     };
-
                 } else {
                     this.$Message.error('表单验证失败!');
                 }

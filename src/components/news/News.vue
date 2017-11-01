@@ -43,13 +43,17 @@
                                 v-model="modal"
                                 title="数据操作"
                                 @on-ok="ok"
-                                @on-cancel="cancel">
+                                @on-cancel="cancel"
+                        >
                             <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
                                 <FormItem label="新闻标题" prop="title">
                                     <Input v-model="formValidate.title" placeholder="请输入标题"></Input>
                                 </FormItem>
                                 <FormItem label="新闻内容" prop="content">
-                                    <Input v-model="formValidate.content" placeholder="请输入内容"></Input>
+                                    <!--<Input v-model="formValidate.content" placeholder="请输入内容"></Input>-->
+                                    <quill-editor v-model="formValidate.comment"
+                                                  ref="myQuillEditor">
+                                    </quill-editor>
                                 </FormItem>
                                 <FormItem>
                                     <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
@@ -139,7 +143,10 @@
                                     },
                                     on: {
                                         click: () => {
-                                            
+                                            this.$router.push({ name: 'comment',params:{newsId:params.row._id}})
+//                                            router.push({ name: 'user', params: { userId: 123 }})
+//                                             带查询参数，变成 /register?plan=private
+//                                            router.push({ path: 'register', query: { plan: 'private' }})
                                         }
                                     }
                                 }, '评论')
@@ -175,6 +182,18 @@
                 this.getData();
                 console.log(this.filter);
             },
+            getTypeValue(){
+//                if (this.typeValue<1) {
+//                    this.$Notice.error({
+//                        title: '通知',
+//                        desc: '请选择分类'
+//                    });
+//                    return false
+//                }else{
+//                    return true
+//                };
+                console.log(1);
+            }
         }
     }
 </script>
