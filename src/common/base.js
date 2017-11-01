@@ -23,6 +23,7 @@ export default {
         },
         show (params) {
             console.log(params);
+            this.typeValue = params.row.typeValue;
             this.modal = true;
             Object.assign(this.$data.formValidate,params.row)
         },
@@ -67,6 +68,7 @@ export default {
             this.getData();
         },
         onDeletes(){
+            console.log(this.ids);
             if (this.ids && this.ids.length > 0) {
                 this.$Modal.confirm({
                     title: '确认删除该条数据',
@@ -82,8 +84,7 @@ export default {
                         this.$Message.info('取消删除');
                     }
                 });
-            }
-            ;
+            };
         },
         onSelectionChange(selection){
             if (selection && selection.length > 0) {
@@ -94,8 +95,7 @@ export default {
                 }
                 ;
                 this.ids = ids;
-            }
-            ;
+            };
         },
         ok () {
             this.$Message.info('确定');
@@ -106,23 +106,49 @@ export default {
         handleSubmit (name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
-
-                    if (this.formValidate._id && this.formValidate._id.length>0) {
-                        this.$http.put(`http://localhost:3000/${this.module}/data/`+this.formValidate._id,this.formValidate)
-                            .then(res=>{
-                                this.getData();
-                                this.$Message.success('修改成功!');
-                                this.modal = false;
-                            })
+                    // console.log(this.typeValue);
+                    if (this.typeValue.toString() != 'undefined') {
+                        if (this.typeValue>0) {
+                            if (this.formValidate._id && this.formValidate._id.length>0) {
+                                this.$http.put(`http://localhost:3000/${this.module}/data/`+this.formValidate._id,this.formValidate)
+                                    .then(res=>{
+                                        this.getData();
+                                        this.$Message.success('修改成功!');
+                                        this.modal = false;
+                                    })
+                            }else{
+                                this.formValidate.typeValue = this.typeValue;
+                                this.$http.post(`http://localhost:3000/${this.module}/data`,this.formValidate)
+                                    .then(res=>{
+                                        this.getData();
+                                        this.$Message.success('提交成功!');
+                                        this.modal = false;
+                                    })
+                            };
+                        }else{
+                            this.$Notice.error({
+                                title: '通知',
+                                desc: '请选择分类'
+                            });
+                        };
                     }else{
-                        this.$http.post(`http://localhost:3000/${this.module}/data`,this.formValidate)
-                            .then(res=>{
-                                this.getData();
-                                this.$Message.success('提交成功!');
-                                this.modal = false;
-                            })
+                        if (this.formValidate._id && this.formValidate._id.length>0) {
+                            this.$http.put(`http://localhost:3000/${this.module}/data/`+this.formValidate._id,this.formValidate)
+                                .then(res=>{
+                                    this.getData();
+                                    this.$Message.success('修改成功!');
+                                    this.modal = false;
+                                })
+                        }else{
+                            this.$http.post(`http://localhost:3000/${this.module}/data`,this.formValidate)
+                                .then(res=>{
+                                    this.getData();
+                                    this.$Message.success('提交成功!');
+                                    this.modal = false;
+                                })
+                        };
                     };
-                    console.log(this.formValidate);
+
                 } else {
                     this.$Message.error('表单验证失败!');
                 }

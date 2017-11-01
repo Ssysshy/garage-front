@@ -99,8 +99,20 @@
                 </MenuItem>
                 <MenuItem name="5">
                     <Icon type="ios-analytics" :size="iconSize"></Icon>
-                    <span class="layout-text">评论模块</span>
+                    <span class="layout-text">
+                        <router-link to="news">
+                            新闻模块
+                        </router-link>
+                    </span>
                 </MenuItem>
+                    <MenuItem name="6">
+                        <Icon type="ios-analytics" :size="iconSize"></Icon>
+                        <span class="layout-text">
+                            <router-link to="comment">
+                                评论模块
+                            </router-link>
+                    </span>
+                    </MenuItem>
             </Menu>
             </Col>
             <Col :span="spanRight">
