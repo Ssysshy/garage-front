@@ -60,92 +60,150 @@
     }
 </style>
 <template>
-    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
-        <Row type="flex">
-            <Col :span="spanLeft" class="layout-menu-left">
-            <Menu active-name="1" theme="dark" width="auto">
-                <div class="layout-logo-left"></div>
-                <MenuItem name="1">
-                    <Icon type="ios-navigate" :size="iconSize"></Icon>
-                    <span class="layout-text">
+    <div>
+        <div v-if="login">
+            <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+                <Row type="flex">
+                    <Col :span="spanLeft" class="layout-menu-left">
+                    <Menu active-name="1" theme="dark" width="auto">
+                        <div class="layout-logo-left" style="color: #fff;line-height: 30px;text-align: center">
+                            新闻后台管理系统
+                        </div>
+                        <MenuItem name="1">
+                            <Icon type="ios-navigate" :size="iconSize"></Icon>
+                            <span class="layout-text">
                         <router-link to="/" exact active-class="active">
                             首页
                         </router-link>
                     </span>
-                </MenuItem>
-                <MenuItem name="2">
-                    <Icon type="ios-keypad" :size="iconSize"></Icon>
-                    <span class="layout-text">
+                        </MenuItem>
+                        <MenuItem name="2">
+                            <Icon type="ios-keypad" :size="iconSize"></Icon>
+                            <span class="layout-text">
                         <router-link to="user" active-class="active">
                             用户模块
                         </router-link>
                     </span>
-                </MenuItem>
-                <MenuItem name="3">
-                    <Icon type="ios-analytics" :size="iconSize"></Icon>
-                    <span class="layout-text">
+                        </MenuItem>
+                        <MenuItem name="3">
+                            <Icon type="ios-analytics" :size="iconSize"></Icon>
+                            <span class="layout-text">
                         <router-link to="cate" active-class="active">
                             分类模块
                         </router-link>
                     </span>
-                </MenuItem>
-                <MenuItem name="4">
-                    <Icon type="ios-analytics" :size="iconSize"></Icon>
-                    <span class="layout-text">
+                        </MenuItem>
+                        <MenuItem name="4">
+                            <Icon type="ios-analytics" :size="iconSize"></Icon>
+                            <span class="layout-text">
                         <router-link to="upload">
                             上传模块
                         </router-link>
                     </span>
-                </MenuItem>
-                <MenuItem name="5">
-                    <Icon type="ios-analytics" :size="iconSize"></Icon>
-                    <span class="layout-text">
+                        </MenuItem>
+                        <MenuItem name="5">
+                            <Icon type="ios-analytics" :size="iconSize"></Icon>
+                            <span class="layout-text">
                         <router-link to="news">
                             新闻模块
                         </router-link>
                     </span>
-                </MenuItem>
-            </Menu>
-            </Col>
-            <Col :span="spanRight">
-            <div class="layout-header">
-                <Button type="text" @click="toggleClick">
-                    <Icon type="navicon" size="32"></Icon>
-                </Button>
-            </div>
-            <div class="layout-breadcrumb">
-                <Breadcrumb>
-                    <BreadcrumbItem href="#">首页</BreadcrumbItem>
-                    <BreadcrumbItem href="#">应用中心</BreadcrumbItem>
-                    <BreadcrumbItem>某应用</BreadcrumbItem>
-                </Breadcrumb>
-            </div>
-            <div class="layout-content">
-                <router-view></router-view>
-            </div>
-            <div class="layout-copy">
-                2011-2016 &copy; TalkingData
+                        </MenuItem>
+                        <MenuItem name="6">
+                            <Icon type="ios-analytics" :size="iconSize"></Icon>
+                            <span class="layout-text">
+                        <router-link to="product">
+                            产品模块
+                        </router-link>
+                    </span>
+                        </MenuItem>
+                    </Menu>
+                    </Col>
+                    <Col :span="spanRight">
+                    <div class="layout-header">
+                        <Button type="text" @click="toggleClick">
+                            <Icon type="navicon" size="32"></Icon>
+                        </Button>
+                        <Button @click="logout">退出账户</Button>
+                    </div>
+                    <div class="layout-breadcrumb">
+                        <Breadcrumb>
+                            <BreadcrumbItem href="#">首页</BreadcrumbItem>
+                            <BreadcrumbItem href="#">应用中心</BreadcrumbItem>
+                            <BreadcrumbItem>某应用</BreadcrumbItem>
+                        </Breadcrumb>
+                    </div>
+                    <div class="layout-content">
+                <router-view>
+
+                    </router-view>
+                    </div>
+                    <div class="layout-copy">
+                        2011-2016 &copy; TalkingData
 
 
+                    </div>
+                    </Col>
+                </Row>
             </div>
-            </Col>
-        </Row>
+        </div>
+        <div v-else>
+            <div style="position: absolute;left: 50%;top: 50%;transform: translateX(-50%) translateY(-100%);border: 1px solid #ccc;border-radius: 10px;padding: 40px">
+                <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
+                    <FormItem prop="user">
+                        <Input type="text" v-model="formInline.name" placeholder="Username">
+                        <Icon type="ios-person-outline" slot="prepend"></Icon>
+                        </Input>
+                    </FormItem>
+                    <FormItem prop="password">
+                        <Input type="password" v-model="formInline.password" placeholder="Password">
+                        <Icon type="ios-locked-outline" slot="prepend"></Icon>
+                        </Input>
+                    </FormItem>
+                    <br>
+                    <FormItem style="position: absolute;left: 50%;transform: translateX(-60%)">
+                        <Button type="success" long @click="handleSubmit('formInline')">登录</Button>
+                    </FormItem>
+                </Form>
+            </div>
+        </div>
     </div>
+
+
 </template>
 <script>
+    import {mapGetters,mapActions} from 'vuex';
     export default {
         data () {
             return {
                 spanLeft: 5,
-                spanRight: 19
+                spanRight: 19,
+                formInline: {
+                    name: '',
+                    password: ''
+                },
+                ruleInline: {
+                    name: [
+                        { required: true, message: '请填写用户名', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: '请填写密码', trigger: 'blur' },
+                        { type: 'string', min: 2, message: '密码长度不能小于6位', trigger: 'blur' }
+                    ]
+                }
             }
         },
         computed: {
             iconSize () {
                 return this.spanLeft === 5 ? 14 : 24;
-            }
+            },
+            ...mapGetters(['login']),
         },
         methods: {
+            logout(){
+                this.checkLogin(false);
+                delete localStorage.login;
+            },
             toggleClick () {
                 if (this.spanLeft === 5) {
                     this.spanLeft = 2;
@@ -154,7 +212,30 @@
                     this.spanLeft = 5;
                     this.spanRight = 19;
                 }
+            },
+            ...mapActions(['checkLogin']),
+            handleSubmit(name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        var data = {name:this.formInline.name,password:this.formInline.password}
+                        this.$http.post('http://localhost:3000/users/data/checklogin',data)
+                            .then(res=>{
+                                if (res.data[0].name != '') {
+                                    this.checkLogin(true);
+                                    localStorage.login = true;
+                                    this.$Message.success('登录成功!');
+                                }else{
+                                    this.$Message.success('用户名或密码错误!');
+                                };
+                            })
+                    } else {
+                        this.$Message.error('表单验证失败!');
+                    }
+                })
             }
-        }
+        },
+        created(){
+            this.checkLogin(localStorage.login);
+        },
     }
 </script>

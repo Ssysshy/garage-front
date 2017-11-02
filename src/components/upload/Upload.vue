@@ -118,6 +118,7 @@
                                     on: {
                                         click: () => {
                                             this.show(params.index)
+                                            console.log(params);
                                         }
                                     }
                                 }, '查看'),
@@ -163,7 +164,6 @@
                     title: '记录信息',
                     content: `文件名：${this.filter.list[index].originalname}<br>文件类型：${this.filter.list[index].mimetype}<br>上传时间：${this.filter.list[index].date}`
                 })
-                console.log(this.filter);
             },
             getTypeValue(){
                 if (this.typeValue<1) {
@@ -171,7 +171,6 @@
                         title: '通知',
                         desc: '请选择分类'
                     });
-
                     return false
                 }else{
                     return true

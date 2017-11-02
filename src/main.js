@@ -7,6 +7,7 @@ import {routes} from './routes';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueQuillEditor from 'vue-quill-editor';
+import {store} from './store/store';
 
 Vue.use(VueAxios, axios)
 Vue.use(VueQuillEditor)
@@ -24,5 +25,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

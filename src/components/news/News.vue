@@ -182,18 +182,6 @@
                 this.getData();
                 console.log(this.filter);
             },
-            getTypeValue(){
-//                if (this.typeValue<1) {
-//                    this.$Notice.error({
-//                        title: '通知',
-//                        desc: '请选择分类'
-//                    });
-//                    return false
-//                }else{
-//                    return true
-//                };
-                console.log(1);
-            }
         }
     }
 </script>
