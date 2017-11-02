@@ -46,13 +46,20 @@
                             <Button slot="prepend" @click="onDeletes">删除所选记录</Button>
                             <Button slot="append" icon="ios-search" @click="onSearch"></Button>
                         </Input>
-                        <Table border :columns="columns" :data="this.filter.list" @on-selection-change="onSelectionChange"></Table>
+                        <Table border :columns="columns"
+                               :data="this.filter.list"
+                               @on-selection-change="onSelectionChange"
+                               highlight-row
+                               @on-current-change="onRowClick">
+
+                        </Table>
                         <Page :total="filter.total" size="small"
                               show-elevator
                               show-sizer
                               show-total
                               style="padding:5px"
                               @on-change="onChangePage"
+
                               @on-page-size-change="onChangePageSize"
                         ></Page>
                     </div>
@@ -65,10 +72,19 @@
 
 <script>
     import Base from '../../common/base';
+    import { eventBus } from '../../main';
     export default {
         mixins:[Base],
+        props:{
+            newsSrc:{
+                type:Object,
+                required:false,
+            },
+
+        },
         data () {
             return {
+                thumb:{},
                 filter: {
                     originalname: '',
                     typeValue:0,
@@ -143,16 +159,11 @@
         created(){
             this.$http.get('http://localhost:3000/cate/list')
                 .then(res => {
-//                    console.log(res);
                     this.dataTree = res.data;
                 });
             this.getData();
         },
         methods: {
-//            reload(res){
-//                this.getData();
-//                console.log(res);
-//            },
             selectionNode(node){
                 this.typeValue = node[0].typeValue;
                 this.uploadUrl = 'http://localhost:3000/upload/uploadfile/' + this.typeValue;
@@ -178,7 +189,12 @@
             },
             reGet(){
                 this.getData();
+            },
+            onRowClick(node){
+                this.thumb = node;
+//                console.log(src);
+                this.$emit('srcWasEdited',this.thumb);
             }
-        }
+        },
     }
 </script>

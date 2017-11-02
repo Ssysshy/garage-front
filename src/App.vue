@@ -124,7 +124,7 @@
                         <Button type="text" @click="toggleClick">
                             <Icon type="navicon" size="32"></Icon>
                         </Button>
-                        <Button @click="logout">退出账户</Button>
+                        <Button @click="logout">退出管理界面</Button>
                     </div>
                     <div class="layout-breadcrumb">
                         <Breadcrumb>

@@ -13,8 +13,12 @@ Vue.use(VueAxios, axios)
 Vue.use(VueQuillEditor)
 
 
+
 Vue.use(VueRouter);
 Vue.use(iView);
+
+//建立一个数据总线
+export const eventBus = new Vue();
 
 const router = new VueRouter({
     routes:routes, // 可以直接写成routes

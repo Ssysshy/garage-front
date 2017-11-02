@@ -51,15 +51,28 @@
                                 </FormItem>
                                 <FormItem label="新闻内容" prop="content">
                                     <!--<Input v-model="formValidate.content" placeholder="请输入内容"></Input>-->
-                                    <quill-editor v-model="formValidate.comment"
+                                    <quill-editor v-model="formValidate.content"
                                                   ref="myQuillEditor">
                                     </quill-editor>
+                                </FormItem>
+                                <FormItem>
+                                    <Button type="primary" @click="openChoose">选择缩略图</Button>
+                                    <img :src="src" alt="暂无上传图片.jpg" style="width: 80px;height: 50px">
                                 </FormItem>
                                 <FormItem>
                                     <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
                                     <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
                                 </FormItem>
                             </Form>
+                        </Modal>
+                        <Modal
+                                title="对话框标题"
+                                v-model="modalChoose"
+                                :styles="{top: '20px',width:'1000px'}"
+                                @on-ok="showSrc"
+                        >
+                            <!--调用CATE模块-->
+                            <app-upload @srcWasEdited="getThumb"></app-upload>
                         </Modal>
                     </div>
                 </Col>
@@ -72,16 +85,24 @@
 <script>
 
     import Base from '../../common/base';
-
+    import Upload from '../upload/Upload.vue';
+    import { eventBus } from '../../main';
     export default {
         mixins:[Base],
+        components:{
+            'app-upload':Upload
+        },
         data(){
             return {
                 filter:{
-                    title:''
+                    title:'',
+                    thumb:{}
                 },
                 dataTree: [],
+                srcObject:{},
+                src:'',
                 module: 'news',
+                modalChoose: false,
                 typeValue: 0,
                 columns: [
                     {
@@ -100,6 +121,10 @@
                     {
                         title: '上传时间',
                         key: 'date'
+                    },
+                    {
+                        title: '评论数',
+                        key: 'CommentNum'
                     },
                     {
                         title: '操作',
@@ -158,6 +183,7 @@
                 formValidate: {
                     title: '',
                     content: '',
+                    thumb:{}
                 },
                 ruleValidate: {
                     title: [
@@ -176,12 +202,26 @@
                 });
         },
         methods:{
+            reWriteSrc(event){
+                this.src = event;
+                console.log(this.src);
+            },
             selectionNode(node){
                 this.typeValue = node[0].typeValue;
                 this.filter.typeValue = node[0].typeValue;
                 this.getData();
-                console.log(this.filter);
             },
+            openChoose(){
+                this.modalChoose = true;
+            },
+            getThumb(obj){
+                console.log(obj);
+                this.srcObject = obj;
+            },
+            showSrc(){
+                this.src = 'http://localhost:3000/' +this.srcObject.filename;
+                this.formValidate.thumb = this.srcObject;
+            }
         }
     }
 </script>

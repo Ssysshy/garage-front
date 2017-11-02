@@ -101,6 +101,8 @@ export default {
         },
         ok () {
             this.$Message.info('确定');
+            if (this.module == 'news') {
+            };
         },
         cancel () {
             this.$Message.info('取消');
@@ -108,6 +110,7 @@ export default {
         handleSubmit (name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
+                    console.log(this.formValidate);
                     if (this.typeValue != undefined) {
                         if (this.typeValue>0) {
                             if (this.formValidate._id && this.formValidate._id.length>0) {
