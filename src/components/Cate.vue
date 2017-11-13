@@ -59,7 +59,7 @@
         created(){
             this.$http.get('http://localhost:3000/cate/list')
                 .then(res => {
-//                    console.log(res);
+                   console.log(res);
                     this.data = res.data;
                 })
         },
@@ -75,7 +75,6 @@
             deviceTree(Num){
                 this.typeValue = Num;
                 var data = {typeValue : this.typeValue};
-//
                 this.$http.post('http://localhost:3000/cate/device',data)
                     .then(res => {
                         this.data = res.data;

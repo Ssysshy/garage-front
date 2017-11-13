@@ -30,7 +30,7 @@
                                 multiple
                                 type="drag"
                                 name="avatar"
-                                :action=this.uploadUrl
+                                :action='uploadUrl'
                                 :before-upload="getTypeValue"
                                 :on-success="reGet"
                         >
@@ -88,9 +88,11 @@
                 filter: {
                     originalname: '',
                     typeValue:0,
+                    cateId:''
                 },
                 mixins: [Base],
                 dataTree: [],
+                ids:[],
                 module: 'upload',
                 typeValue: 0,
                 uploadUrl: 'http://localhost:3000/upload/uploadfile',
@@ -161,14 +163,26 @@
                 .then(res => {
                     this.dataTree = res.data;
                 });
-            this.getData();
         },
         methods: {
             selectionNode(node){
+                var vm = this;
                 this.typeValue = node[0].typeValue;
-                this.uploadUrl = 'http://localhost:3000/upload/uploadfile/' + this.typeValue;
                 this.filter.typeValue = node[0].typeValue;
-                this.getData();
+                this.filter.cateId = node[0]._id;
+
+                this.uploadUrl = 'http://localhost:3000/upload/uploadfile/' + this.filter.cateId;
+
+                this.$http.post('http://localhost:3000/cate/findids',{id:this.filter.cateId})
+                .then(res=>{
+                    this.ids = res.data;
+                    vm.$http.post('http://localhost:3000/upload/list',{ids:this.ids})
+                    .then(resq=>{
+                        this.filter.list = resq.data.rows;
+                        this.filter.page = resq.data.page;
+                        this.filter.total = resq.data.total;
+                    })
+                })
             },
             show (index) {
                 this.$Modal.info({
@@ -188,7 +202,14 @@
                 };
             },
             reGet(){
-                this.getData();
+                this.$http.post('http://localhost:3000/upload/list',{ids:this.ids})
+                    .then(resq=>{
+                        this.filter.list = resq.data.rows;
+                        this.filter.page = resq.data.page;
+                        this.filter.total = resq.data.total;
+                    })
+
+                console.log(1)
             },
             onRowClick(node){
                 this.thumb = node;

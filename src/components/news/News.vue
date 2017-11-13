@@ -96,7 +96,8 @@
             return {
                 filter:{
                     title:'',
-                    thumb:{}
+                    thumb:{},
+                    cateId:''
                 },
                 dataTree: [],
                 srcObject:{},
@@ -183,7 +184,8 @@
                 formValidate: {
                     title: '',
                     content: '',
-                    thumb:{}
+                    thumb:{},
+                    cateId:''
                 },
                 ruleValidate: {
                     title: [
@@ -196,10 +198,11 @@
             }
         },
         created(){
-            this.$http.get('http://localhost:3000/cate/list')
+             this.$http.post('http://localhost:3000/cate/device',{typeValue:2})
                 .then(res => {
+                    this.data = res.data;
                     this.dataTree = res.data;
-                });
+                })
         },
         methods:{
             reWriteSrc(event){
@@ -207,9 +210,21 @@
                 console.log(this.src);
             },
             selectionNode(node){
+                var vm = this;
                 this.typeValue = node[0].typeValue;
                 this.filter.typeValue = node[0].typeValue;
-                this.getData();
+                this.formValidate.cateId = node[0]._id;
+                this.filter.cateId = node[0]._id;
+                this.$http.post('http://localhost:3000/cate/findids',{id:this.filter.cateId})
+                .then(res=>{
+                    var ids = res.data;
+                    vm.$http.post('http://localhost:3000/news/list',{ids:ids})
+                    .then(resq=>{
+                        this.filter.list = resq.data.rows;
+                        this.filter.page = resq.data.page;
+                        this.filter.total = resq.data.total;
+                    })
+                })
             },
             openChoose(){
                 this.modalChoose = true;
