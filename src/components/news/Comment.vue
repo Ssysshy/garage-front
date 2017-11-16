@@ -28,10 +28,10 @@
                     <Input v-model="formValidate.commenter" placeholder="请输入评论人"></Input>
                 </FormItem>
                 <FormItem label="评论" prop="comment">
-                    <!--<Input v-model="formValidate.comment" placeholder="请输入评论"></Input>-->
-                    <quill-editor v-model="formValidate.comment"
+                    <Input v-model="formValidate.comment" placeholder="请输入评论"></Input>
+                    <!-- <quill-editor v-model="formValidate.comment"
                                   ref="myQuillEditor">
-                    </quill-editor>
+                    </quill-editor> -->
                 </FormItem>
                 <input type="text" v-model="this.filter.id" style="display: none">
                 <FormItem>

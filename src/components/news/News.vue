@@ -166,6 +166,7 @@
                                     },
                                     on: {
                                         click: () => {
+                                            console.log(params.row._id)
                                             this.$router.push({ name: 'comment',params:{newsId:params.row._id}})
 //                                            router.push({ name: 'user', params: { userId: 123 }})
 //                                             带查询参数，变成 /register?plan=private
