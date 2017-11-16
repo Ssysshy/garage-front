@@ -62,7 +62,6 @@ export default {
             this.getData();
         },
         onChangePageSize(size){
-
             this.filter.rows = size;
             this.getData();
         },

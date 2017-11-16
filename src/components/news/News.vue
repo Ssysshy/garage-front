@@ -50,10 +50,7 @@
                                     <Input v-model="formValidate.title" placeholder="请输入标题"></Input>
                                 </FormItem>
                                 <FormItem label="新闻内容" prop="content">
-                                    <!--<Input v-model="formValidate.content" placeholder="请输入内容"></Input>-->
-                                    <quill-editor v-model="formValidate.content"
-                                                  ref="myQuillEditor">
-                                    </quill-editor>
+                                    <Input v-model="formValidate.content" placeholder="请输入内容"></Input>
                                 </FormItem>
                                 <FormItem>
                                     <Button type="primary" @click="openChoose">选择缩略图</Button>

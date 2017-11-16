@@ -53,10 +53,7 @@
                                     <Input v-model="formValidate.price" placeholder="请输入单价..."></Input>
                                 </FormItem>
                                 <FormItem label="商品描述" prop="description">
-                                    <!--<Input v-model="formValidate.content" placeholder="请输入内容"></Input>-->
-                                    <quill-editor v-model="formValidate.description"
-                                                  ref="myQuillEditor">
-                                    </quill-editor>
+                                    <Input v-model="formValidate.description" placeholder="请输入内容"></Input>
                                 </FormItem>
                                 <FormItem>
                                     <Button type="primary" @click="openChoose">选择缩略图</Button>
@@ -209,7 +206,7 @@
                 console.log(this.src);
             },
             selectionNode(node){
-                // console.log(node)
+                console.log(node)
                 var vm = this;
                 this.typeValue = node[0].typeValue;
                 this.filter.typeValue = node[0].typeValue;
@@ -218,8 +215,10 @@
                 this.$http.post('http://localhost:3000/cate/findids',{id:this.filter.cateId})
                 .then(res=>{
                     var ids = res.data;
+                    console.log(res);
                     vm.$http.post('http://localhost:3000/product/list',{ids:ids})
                     .then(resq=>{
+                        console.log(resq)
                         this.filter.list = resq.data.rows;
                         this.filter.page = resq.data.page;
                         this.filter.total = resq.data.total;
