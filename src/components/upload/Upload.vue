@@ -208,12 +208,9 @@
                         this.filter.page = resq.data.page;
                         this.filter.total = resq.data.total;
                     })
-
-                console.log(1)
             },
             onRowClick(node){
                 this.thumb = node;
-//                console.log(src);
                 this.$emit('srcWasEdited',this.thumb);
             }
         },
