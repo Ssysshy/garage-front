@@ -1,64 +1,64 @@
 <style scoped>
-    .layout {
-        border: 1px solid #d7dde4;
-        background: #f5f7f9;
-        position: relative;
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    
-    .layout-breadcrumb {
-        padding: 10px 15px 0;
-    }
-    
-    .layout-content {
-        min-height: 200px;
-        margin: 15px;
-        overflow: hidden;
-        background: #fff;
-        border-radius: 4px;
-    }
-    
-    .layout-content-main {
-        padding: 10px;
-    }
-    
-    .layout-copy {
-        text-align: center;
-        padding: 10px 0 20px;
-        color: #9ea7b4;
-    }
-    
-    .layout-menu-left {
-        background: #464c5b;
-        min-height: 700px
-    }
-    
-    .layout-header {
-        height: 60px;
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
-    }
-    
-    .layout-logo-left {
-        width: 90%;
-        height: 30px;
-        background: #5b6270;
-        border-radius: 3px;
-        margin: 15px auto;
-    }
-    
-    .layout-ceiling-main a {
-        color: #9ba7b5;
-    }
-    
-    .layout-hide-text .layout-text {
-        display: none;
-    }
-    
-    .ivu-col {
-        transition: width .2s ease-in-out;
-    }
+.layout {
+  border: 1px solid #d7dde4;
+  background: #f5f7f9;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.layout-breadcrumb {
+  padding: 10px 15px 0;
+}
+
+.layout-content {
+  min-height: 200px;
+  margin: 15px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.layout-content-main {
+  padding: 10px;
+}
+
+.layout-copy {
+  text-align: center;
+  padding: 10px 0 20px;
+  color: #9ea7b4;
+}
+
+.layout-menu-left {
+  background: #464c5b;
+  min-height: 700px;
+}
+
+.layout-header {
+  height: 60px;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.layout-logo-left {
+  width: 90%;
+  height: 30px;
+  background: #5b6270;
+  border-radius: 3px;
+  margin: 15px auto;
+}
+
+.layout-ceiling-main a {
+  color: #9ba7b5;
+}
+
+.layout-hide-text .layout-text {
+  display: none;
+}
+
+.ivu-col {
+  transition: width 0.2s ease-in-out;
+}
 </style>
 
 <template>
@@ -88,6 +88,14 @@
                         </span>
                         </MenuItem>
                         <MenuItem name="3">
+                        <Icon type="ios-keypad" :size="iconSize"></Icon>
+                        <span class="layout-text">
+                            <router-link to="parkinfo" active-class="active">
+                                车位占用进度
+                            </router-link>
+                        </span>
+                        </MenuItem>
+                        <MenuItem name="4">
                         <Icon type="ios-analytics" :size="iconSize"></Icon>
                         <span class="layout-text">
                             <router-link to="cate" active-class="active">
@@ -95,7 +103,7 @@
                             </router-link>
                         </span>
                         </MenuItem>
-                        <MenuItem name="4">
+                        <MenuItem name="5">
                         <Icon type="ios-analytics" :size="iconSize"></Icon>
                         <span class="layout-text">
                             <router-link to="upload">
@@ -103,7 +111,7 @@
                             </router-link>
                         </span>
                         </MenuItem>
-                        <MenuItem name="5">
+                        <MenuItem name="6">
                         <Icon type="ios-analytics" :size="iconSize"></Icon>
                         <span class="layout-text">
                             <router-link to="news">
@@ -111,7 +119,7 @@
                             </router-link>
                         </span>
                         </MenuItem>
-                        <MenuItem name="6">
+                        <MenuItem name="7">
                         <Icon type="ios-analytics" :size="iconSize"></Icon>
                         <span class="layout-text">
                             <router-link to="product">
@@ -172,87 +180,88 @@
 </template>
 
 <script>
-    import {
-        mapGetters,
-        mapActions
-    } from 'vuex';
-    
-    export default {
-        data() {
-            return {
-                spanLeft: 5,
-                spanRight: 19,
-                formInline: {
-                    name: '',
-                    password: ''
-                },
-                ruleInline: {
-                    name: [{
-                        required: true,
-                        message: '请填写用户名',
-                        trigger: 'blur'
-                    }],
-                    password: [{
-                            required: true,
-                            message: '请填写密码',
-                            trigger: 'blur'
-                        },
-                        {
-                            type: 'string',
-                            min: 2,
-                            message: '密码长度不能小于6位',
-                            trigger: 'blur'
-                        }
-                    ]
-                }
-            }
-        },
-        computed: {
-            iconSize() {
-                return this.spanLeft === 5 ? 14 : 24;
-            },
-            ...mapGetters(['login']),
-        },
-        methods: {
-            logout() {
-                this.checkLogin(false);
-                delete localStorage.login;
-            },
-            toggleClick() {
-                if (this.spanLeft === 5) {
-                    this.spanLeft = 2;
-                    this.spanRight = 22;
-                } else {
-                    this.spanLeft = 5;
-                    this.spanRight = 19;
-                }
-            },
-            ...mapActions(['checkLogin']),
-            handleSubmit(name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        var data = {
-                            name: this.formInline.name,
-                            password: this.formInline.password
-                        }
-                        this.$http.post('http://localhost:3000/users/data/checklogin', data)
-                            .then(res => {
-                                if (res.data[0].name != '') {
-                                    this.checkLogin(true);
-                                    localStorage.login = true;
-                                    this.$Message.success('登录成功!');
-                                } else {
-                                    this.$Message.success('用户名或密码错误!');
-                                };
-                            })
-                    } else {
-                        this.$Message.error('表单验证失败!');
-                    }
-                })
-            }
-        },
-        created() {
-            this.checkLogin(localStorage.login);
-        },
+import { mapGetters, mapActions } from "vuex";
+
+export default {
+  data() {
+    return {
+      spanLeft: 5,
+      spanRight: 19,
+      formInline: {
+        name: "",
+        password: ""
+      },
+      ruleInline: {
+        name: [
+          {
+            required: true,
+            message: "请填写用户名",
+            trigger: "blur"
+          }
+        ],
+        password: [
+          {
+            required: true,
+            message: "请填写密码",
+            trigger: "blur"
+          },
+          {
+            type: "string",
+            min: 2,
+            message: "密码长度不能小于6位",
+            trigger: "blur"
+          }
+        ]
+      }
+    };
+  },
+  computed: {
+    iconSize() {
+      return this.spanLeft === 5 ? 14 : 24;
+    },
+    ...mapGetters(["login"])
+  },
+  methods: {
+    logout() {
+      this.checkLogin(false);
+      delete localStorage.login;
+    },
+    toggleClick() {
+      if (this.spanLeft === 5) {
+        this.spanLeft = 2;
+        this.spanRight = 22;
+      } else {
+        this.spanLeft = 5;
+        this.spanRight = 19;
+      }
+    },
+    ...mapActions(["checkLogin"]),
+    handleSubmit(name) {
+      this.$refs[name].validate(valid => {
+        if (valid) {
+          var data = {
+            name: this.formInline.name,
+            password: this.formInline.password
+          };
+          this.$http
+            .post("http://localhost:3000/users/data/checklogin", data)
+            .then(res => {
+              if (res.data[0].name != "") {
+                this.checkLogin(true);
+                localStorage.login = true;
+                this.$Message.success("登录成功!");
+              } else {
+                this.$Message.success("用户名或密码错误!");
+              }
+            });
+        } else {
+          this.$Message.error("表单验证失败!");
+        }
+      });
     }
+  },
+  created() {
+    this.checkLogin(localStorage.login);
+  }
+};
 </script>

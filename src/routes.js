@@ -5,6 +5,7 @@ import Upload from './components/upload/Upload.vue';
 import News from './components/news/News.vue';
 import Comment from './components/news/Comment.vue';
 import Product from './components/product/Product.vue';
+import ParkInfo from './components/parkInfo/ParkInfo.vue';
 
 
 export const routes = [
@@ -15,4 +16,5 @@ export const routes = [
 	{ path:'/news',component:News,name:'news'},
 	{ path:'/comment',component:Comment,name:'comment'},
 	{ path:'/product',component:Product,name:'product'},
+	{ path:'/parkinfo',component:ParkInfo,name:'parkInfo'}
 ];
