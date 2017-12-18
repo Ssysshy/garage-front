@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.17.0",
-    "iview": "^2.6.0",
+    "iview": "^2.7.4",
     "vue": "^2.4.4",
     "vue-axios": "^2.0.2",
     "vue-quill-editor": "^2.3.3",
