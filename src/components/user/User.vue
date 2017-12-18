@@ -9,7 +9,7 @@
                :data="filter.list"
                @on-selection-change="onSelectionChange"
         ></Table>
-        <Page :total="40" size="small"
+        <Page :total="filter.total" size="small"
               show-elevator
               show-sizer
               show-total
@@ -22,23 +22,17 @@
                 title="数据操作"
                 @on-ok="ok"
                 @on-cancel="cancel">
-            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+            <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
                 <FormItem label="姓名" prop="name">
                     <Input v-model="formValidate.name" placeholder="请输入姓名"></Input>
                 </FormItem>
                 <FormItem label="密码" prop="password">
                     <Input v-model="formValidate.password" placeholder="请输入密码"></Input>
                 </FormItem>
-                <FormItem label="城市" prop="city">
-                    <Select v-model="formValidate.city" placeholder="请选择所在地">
-                        <Option value="beijing">北京市</Option>
-                        <Option value="shanghai">上海市</Option>
-                        <Option value="shenzhen">深圳市</Option>
-                        <Option value="ningbo">宁波市</Option>
-                        <Option value="hangzhou">杭州市</Option>
-                    </Select>
+                <FormItem label="注册车辆信息" prop="carInfo">
+                    <Input v-model="formValidate.carInfo" placeholder="请输入车辆信息"></Input>
                 </FormItem>
-                <FormItem label="性别" prop="gender">
+                <FormItem label="车主性别" prop="gender">
                     <RadioGroup v-model="formValidate.gender">
                         <Radio label="male">男</Radio>
                         <Radio label="female">女</Radio>
@@ -66,7 +60,7 @@
                         align: 'center'
                     },
                     {
-                        title: '姓名',
+                        title: '用户名',
                         key: 'name',
                         render: (h, params) => {
                             return h('div', [
@@ -80,7 +74,7 @@
                         }
                     },
                     {
-                        title: '密码',
+                        title: '登陆密码',
                         key: 'password'
                     },
                     {
@@ -88,12 +82,13 @@
                         key: 'gender'
                     },
                     {
-                        title: '城市',
-                        key:'city'
+                        title: '注册车辆信息',
+                        key: 'carInfo'
                     },
                     {
-                        title: '时间',
-                        key: 'date'
+                        title: '注册时间',
+                        key: 'date',
+                        width: 160
                     },
                     {
                         title: '操作',
@@ -134,8 +129,8 @@
                 formValidate: {
                     name: '',
                     password: '',
-                    city: '',
                     gender: '',
+                    carInfo:''
                 },
                 ruleValidate: {
                     name: [
@@ -144,11 +139,11 @@
                     mail: [
                         {required: true, message: '密码不能为空', trigger: 'blur'},
                     ],
-                    city: [
-                        {required: true, message: '请选择城市', trigger: 'change'}
-                    ],
                     gender: [
                         {required: true, message: '请选择性别', trigger: 'change'}
+                    ],
+                    carInfo: [
+                        {required: true, message: '车辆信息不能为空', trigger: 'blur'}
                     ],
                 }
             }

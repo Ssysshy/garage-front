@@ -69,7 +69,7 @@
                     <Col :span="spanLeft" class="layout-menu-left">
                     <Menu active-name="1" theme="dark" width="auto">
                         <div class="layout-logo-left" style="color: #fff;line-height: 30px;text-align: center">
-                            新闻后台管理系统
+                            智能车库后台管理系统
                         </div>
                         <MenuItem name="1">
                         <Icon type="ios-navigate" :size="iconSize"></Icon>
@@ -83,7 +83,7 @@
                         <Icon type="ios-keypad" :size="iconSize"></Icon>
                         <span class="layout-text">
                             <router-link to="user" active-class="active">
-                                用户模块
+                                会员用户信息
                             </router-link>
                         </span>
                         </MenuItem>
