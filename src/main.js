@@ -12,8 +12,6 @@ import {store} from './store/store';
 Vue.use(VueAxios, axios)
 Vue.use(VueQuillEditor)
 
-
-
 Vue.use(VueRouter);
 Vue.use(iView);
 
