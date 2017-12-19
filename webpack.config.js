@@ -25,6 +25,12 @@ module.exports = {
                 }
             },
             {
+                loader: 'iview-loader',
+                options: {
+                    prefix: false
+                }
+            },
+            {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
