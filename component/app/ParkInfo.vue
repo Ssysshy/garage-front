@@ -3,7 +3,7 @@
     <div class="rateBox">
       <p class="title">第 <span style="color: #FF0000">{{ focusAim }}</span> 车位剩余时间</p>
       <count-down class="countDown" :data-diff="deadTime" ref="count"></count-down>
-      <button @click="chuangjian">chuangjian</button>
+      <!--<button @click="chuangjian">chuangjian</button>-->
     </div>
     <Table :columns="columns1" :data="filter.list" @on-row-click="checkTime"></Table>
     <Modal
@@ -27,10 +27,12 @@ export default {
   data() {
     return {
       modalSet: false,
-      value: '',
+      value: 0,
       module: 'occupy',
       deadTime: '00:00:00',
       focusAim: 'X',
+      params: {},
+      _id: '',
       columns1: [
         {
           title: '车位编号',
@@ -57,8 +59,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    console.log(params);
-                    this.setTime(params.index, params.row._id);
+                    this.setTime(params.row._id, params);
                   }
                 }
               }, '创建占用时间'),
@@ -68,7 +69,7 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.setTime(params.index);
+                    this.oneTime(params.row._id, params);
                   }
                 }
               }, '重置占用情况')
@@ -83,36 +84,59 @@ export default {
   },
   methods: {
     checkTime(index) {
+      this.getData();
       this.deadTime = index.deadtime;
       this.focusAim = index.number;
-      // this.$refs.count.initTime(this.deadTime)
+      this.$refs.count.initTime(this.deadTime)
     },
-    setTime(index, _id) {
-      const data = {
-        number: index,
-        lasttime: 6
-      };
-      this.$http.put(`http://localhost:3000/occupy/data/${_id}`, data)
-        .then(res => {
-          this.getData();
-          this.$Message.success('设置占用成功!');
-          this.modal = false;
-        });
-    },
-    chuangjian() {
-      const data = {
-        number: 3,
-        lasttime: 4
-      };
-      this.$http.post(`http://localhost:3000/occupy/data`, data)
-        .then(res => {
-          this.getData();
-          this.$Message.success('设置占用成功!');
-          this.modal = false;
-        });
-    },
-    ok () {
+    setTime(_id, params) {
       this.modalSet = true;
+      this.params = params;
+      this._id = _id;
+      console.log(this._id, this.params);
+    },
+    oneTime(_id, params) {
+      if (params.row.lasttime === 0) {
+        this.$Message.success('已空置，无需清零');
+        return;
+      } else {
+        const data = {
+          number: params.row.number,
+          lasttime: 0,
+          date: new Date().getTime(),
+        };
+        this.$http.put(`http://localhost:3000/occupy/data/${_id}`, data)
+          .then(res => {
+            this.getData();
+            this.$Message.success('设置占用成功!');
+            this.modal = false;
+          });
+      }
+    },
+    // chuangjian() {
+    //   const data = {
+    //     number: 5,
+    //     lasttime: 4
+    //   };
+    //   this.$http.post(`http://localhost:3000/occupy/data`, data)
+    //     .then(res => {
+    //       this.getData();
+    //       this.$Message.success('设置占用成功!');
+    //       this.modal = false;
+    //     });
+    // },
+    ok () {
+      const data = {
+        number: this.params.row.number,
+        lasttime: this.value,
+        date: new Date().getTime(),
+      };
+      this.$http.put(`http://localhost:3000/occupy/data/${this._id}`, data)
+        .then(res => {
+          this.getData();
+          this.$Message.success('设置占用成功!');
+          this.modal = false;
+        });
     },
     cancel () {
       this.$Message.info('Clicked cancel');

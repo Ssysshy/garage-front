@@ -30,9 +30,9 @@ export default {
       Object.assign(this.$data.formValidate, params.row);
     },
     getData() {
-      console.log(this.filter, 1);
       this.$http.post(`http://localhost:3000/${this.module}/list`, this.filter)
         .then(res => {
+          console.log(res);
           this.filter.list = res.data.rows;
           this.filter.page = res.data.page;
           this.filter.total = res.data.total;
