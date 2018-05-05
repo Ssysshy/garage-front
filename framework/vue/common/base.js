@@ -30,6 +30,7 @@ export default {
       Object.assign(this.$data.formValidate, params.row);
     },
     getData() {
+      console.log(this.filter, 1);
       this.$http.post(`http://localhost:3000/${this.module}/list`, this.filter)
         .then(res => {
           this.filter.list = res.data.rows;
@@ -43,8 +44,6 @@ export default {
         content: '<p>删除将无法恢复</p>',
         onOk: () => {
           this.filter.list.splice(index, 1);
-
-//                console.log(id);
           this.filter.id = id;
           this.$http.delete(`http://localhost:3000/${this.module}/data/${this.filter.id}`)
             .then(res => {
@@ -101,9 +100,6 @@ export default {
     },
     ok() {
       this.$Message.info('确定');
-      if (this.module === 'news') {
-        console.log(1);
-      }
     },
     cancel() {
       this.$Message.info('取消');
@@ -111,8 +107,7 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-
-          // console.log(this.formValidate);
+          console.log(this.formValidate);
           if (this.typeValue !== undefined) {
             if (this.typeValue > 0) {
               if (this.formValidate._id && this.formValidate._id.length > 0) {
