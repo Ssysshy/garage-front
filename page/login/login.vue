@@ -94,8 +94,8 @@
           }
         });
       },
-      checkCookie() {
-        const username = getCookie('name');
+      checkCookie(key) {
+        const username = getCookie(key);
         if (username !== null && username !== '') {
           this.comfirm = true;
         }

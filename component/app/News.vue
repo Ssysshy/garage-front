@@ -63,7 +63,7 @@
             </Form>
           </Modal>
           <Modal
-            title="对话框标题"
+            title="上传文件选择"
             v-model="modalChoose"
             :styles="{top: '20px',width:'1000px'}"
             @on-ok="showSrc"

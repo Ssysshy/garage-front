@@ -1,8 +1,8 @@
 <template>
   <div>
     <Input v-model="filter.name" style="padding: 5px">
-    <Button slot="prepend" @click="onAdd">添加记录</Button>
-    <Button slot="prepend" @click="onDeletes">删除所选记录</Button>
+    <Button slot="prepend" @click="onAdd">添加用户</Button>
+    <Button slot="prepend" @click="onDeletes">删除所选用户</Button>
     <Button slot="append" icon="ios-search" @click="onSearch"></Button>
     </Input>
     <Table border :columns="columns"
@@ -23,7 +23,7 @@
       @on-ok="ok"
       @on-cancel="cancel">
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
-        <FormItem label="姓名" prop="name">
+        <FormItem label="用户名" prop="name">
           <Input v-model="formValidate.name" placeholder="请输入姓名"></Input>
         </FormItem>
         <FormItem label="密码" prop="password">
