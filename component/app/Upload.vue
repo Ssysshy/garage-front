@@ -136,7 +136,6 @@
                   on: {
                     click: () => {
                       this.show(params.index);
-                      console.log(params);
                     }
                   }
                 }, '查看'),

@@ -1,33 +1,37 @@
+<style lang="less" scoped>
+
+</style>
+
 <template>
-  <div>
+  <div class="layout">
     <Input v-model="filter.name" style="padding: 5px">
-    <Button slot="prepend" @click="onAdd">添加用户</Button>
-    <Button slot="prepend" @click="onDeletes">删除所选用户</Button>
-    <Button slot="append" icon="ios-search" @click="onSearch"></Button>
+      <Button slot="prepend" @click="onAdd">添加资源储存</Button>
+      <Button slot="prepend" @click="onDeletes">删除所选储存资源</Button>
+      <Button slot="append" icon="ios-search" @click="onSearch"></Button>
     </Input>
+
     <Table border :columns="columns"
            :data="filter.list"
-           @on-selection-change="onSelectionChange"
-    ></Table>
+           @on-selection-change="onSelectionChange"></Table>
+
     <Page :total="filter.total" size="small"
           show-elevator
           show-sizer
           show-total
           style="padding:5px"
           @on-change="onChangePage"
-          @on-page-size-change="onChangePageSize"
-    ></Page>
-    <Modal
-      v-model="modal"
-      title="数据操作"
-      @on-ok="ok"
-      @on-cancel="cancel">
+          @on-page-size-change="onChangePageSize"></Page>
+
+    <Modal v-model="modal"
+           title="数据操作"
+           @on-ok="ok"
+           @on-cancel="cancel">
       <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
-        <FormItem label="用户名" prop="name">
-          <Input v-model="formValidate.name" placeholder="请输入姓名"></Input>
+        <FormItem label="资源名称" prop="resourceName">
+          <Input v-model="formValidate.resourceName" placeholder="请输入资源名称"></Input>
         </FormItem>
-        <FormItem label="密码" prop="pwd">
-          <Input v-model="formValidate.pwd" placeholder="请输入密码"></Input>
+        <FormItem label="网盘地址" prop="resourceUrl">
+          <Input v-model="formValidate.resourceUrl" placeholder="请输入资源对应的网盘地址"></Input>
         </FormItem>
         <FormItem>
           <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
@@ -37,14 +41,16 @@
     </Modal>
   </div>
 </template>
+
 <script>
   import Base from 'framework/vue/common/base';
 
   export default {
+    name: 'disk',
     mixins: [Base],
     data() {
       return {
-        module: 'users',
+        module: 'disk',
         columns: [
           {
             type: 'selection',
@@ -52,27 +58,12 @@
             align: 'center'
           },
           {
-            title: '用户名',
-            key: 'name',
-            render: (h, params) => {
-              return h('div', [
-                h('Icon', {
-                  props: {
-                    type: 'person'
-                  }
-                }),
-                h('strong', params.row.name)
-              ]);
-            }
+            title: '资源名称',
+            key: 'resourceName'
           },
           {
-            title: '登陆密码',
-            key: 'password'
-          },
-          {
-            title: '注册时间',
-            key: 'date',
-            width: 160
+            title: '资源地址',
+            key: 'resourceUrl'
           },
           {
             title: '操作',
@@ -111,18 +102,20 @@
           }
         ],
         formValidate: {
-          name: '',
-          pwd: '',
+          resourceName: '',
+          resourceUrl: '',
         },
         ruleValidate: {
-          name: [
-            { required: true, message: '用户名不能为空', trigger: 'blur' }
+          resourceName: [
+            { required: true, message: '资源名称不能为空', trigger: 'blur' }
           ],
-          mail: [
-            { required: true, message: '密码不能为空', trigger: 'blur' }
+          resourceUrl: [
+            { required: true, message: '资源地址不能为空', trigger: 'blur' }
           ]
         }
-      };
+      }
     }
   };
 </script>
+
+

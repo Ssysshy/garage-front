@@ -9,6 +9,7 @@ import News from './News.vue';
 import Comment from './Comment.vue';
 import Product from './Product.vue';
 import ParkInfo from './ParkInfo.vue';
+import Disk from './disk.vue';
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,11 @@ const router = new VueRouter({
       path: '/parkinfo',
       component: ParkInfo,
       name: 'parkinfo'
+    },
+    {
+      path: '/disk',
+      component: Disk,
+      name: 'disk'
     }
   ]
 });

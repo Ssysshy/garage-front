@@ -21,38 +21,31 @@
             </MenuItem>
           </router-link>
 
-          <router-link to="parkinfo" active-class="active">
-            <MenuItem name="3">
-              <Icon type="ios-keypad" :size="iconSize"></Icon>
-              <span class="layout-text">车位占用情况</span>
-            </MenuItem>
-          </router-link>
-
           <router-link to="cate" active-class="active">
-            <MenuItem name="4">
+            <MenuItem name="3">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">分类模块</span>
             </MenuItem>
           </router-link>
 
           <router-link to="upload">
-            <MenuItem name="5">
+            <MenuItem name="4">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">上传模块</span>
             </MenuItem>
           </router-link>
 
           <router-link to="news">
-            <MenuItem name="6">
+            <MenuItem name="5">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
               <span class="layout-text">新闻模块</span>
             </MenuItem>
           </router-link>
 
-          <router-link to="product">
-            <MenuItem name="7">
+          <router-link to="disk">
+            <MenuItem name="6">
               <Icon type="ios-analytics" :size="iconSize"></Icon>
-              <span class="layout-text">产品模块</span>
+              <span class="layout-text">网盘模块</span>
             </MenuItem>
           </router-link>
         </Menu>
@@ -101,7 +94,7 @@
       return {
         spanLeft: 5,
         spanRight: 19,
-        title: '智能车库后台管理系统',
+        title: '待定',
         comfirm: false
       };
     },
@@ -113,11 +106,11 @@
     methods: {
       toggleClick() {
         if (this.spanLeft === 5) {
-          this.title = '管理系统';
+          this.title = '待定';
           this.spanLeft = 2;
           this.spanRight = 22;
         } else {
-          this.title = '智能车库后台管理系统';
+          this.title = '待定';
           this.spanLeft = 5;
           this.spanRight = 19;
         }

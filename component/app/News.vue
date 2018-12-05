@@ -21,7 +21,7 @@
     <div class="layout-content">
       <Row>
         <Col span="5" style="width: 150px;">
-        <Tree :data="dataTree" @on-select-change="selectionNode"></Tree>
+          <Tree :data="dataTree" @on-select-change="selectionNode"></Tree>
         </Col>
         <Col span="19" style="border-left: 1px solid #ccc;margin: 5px;min-height: 200px">
         <div class="layout-content-main">
@@ -66,8 +66,7 @@
             title="上传文件选择"
             v-model="modalChoose"
             :styles="{top: '20px',width:'1000px'}"
-            @on-ok="showSrc"
-          >
+            @on-ok="showSrc">
             <!--调用CATE模块-->
             <app-upload @srcWasEdited="getThumb"></app-upload>
           </Modal>

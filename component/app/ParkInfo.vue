@@ -93,7 +93,6 @@ export default {
       this.modalSet = true;
       this.params = params;
       this._id = _id;
-      console.log(this._id, this.params);
     },
     oneTime(_id, params) {
       if (params.row.lasttime === 0) {
